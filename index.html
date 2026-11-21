@@ -80,7 +80,7 @@
           <div class="edit-message" id="editMessage">選一格，可以改成四色糖果／糖果罐／龍鬚酥／未知。</div>
           <div class="palette" id="palette" aria-label="將選擇的格子改成指定顏色"></div>
         </div>
-        <p class="panel-note">糖果罐 🫙 拖動後預估清除落點周圍 3×3；龍鬚酥 🍥 拖動後預估清除落點十字方向。未知 ❔ 不計入交換。點格子可更正自動辨識。</p>
+        <p class="panel-note">糖果罐 🫙 拖動後預估落點周圍 3×3；龍鬚酥 🍥 拖動後預估落點十字消除。特效只算一次，不計算附加連線／連鎖；兩個特殊彼此交換的結果未明，不列入。未知 ❔ 不計入。點格子可更正辨識。</p>
       </section>
     </div>
 
@@ -111,7 +111,7 @@
       </div>
     </section>
     <footer>
-      <p>依遊戲教學：普通 3 連消除；4 個同色生成糖果罐、5 個以上生成龍鬚酥；<strong>拖動糖果罐預估 3×3、龍鬚酥預估十字清除</strong>。只算本次連線或單次主特效，交叉格不重複；不模擬落下、補糖、連鎖或特殊糖果互相引爆。特效以拖動後落點為中心估算，實際規則仍以遊戲為準。</p>
+      <p>依遊戲教學：普通 3 連消除；4 個同色生成糖果罐、5 個以上生成龍鬚酥；<strong>拖動糖果罐預估 3×3、龍鬚酥預估十字清除</strong>。普通交換只算當次連線；特殊交換只算其主特效，交叉格不重複，不額外計入普通連線；不模擬落下、補糖、連鎖或特殊糖果互相引爆。特殊對特殊的組合未在教學說明，因此不列入排行。特效以拖動後落點為中心估算，實際規則仍以遊戲為準。</p>
       <p>靜態網站 · 原生 JavaScript · 無第三方函式庫 · 圖片只留在目前瀏覽器分頁。</p>
     </footer>
   </main>
@@ -202,9 +202,8 @@ function specialArea(type, r, c) {
 }
 
 /** Enumerate all adjacent exchanges; special moves are directional.
- * Only the immediately formed runs or the dragged special's main effect count.
- * Two specials swapped together are treated as two possible drag actions; we
- * intentionally do NOT assume a combo or secondary detonation.
+ * Only the immediately formed runs OR the dragged special's main effect count.
+ * Special-on-special combinations are not modeled because the tutorial does not explain them.
  */
 function solve(board) {
   assertBoard(board);
@@ -216,7 +215,9 @@ function solve(board) {
     after[from.r][from.c]=b;
     after[to.r][to.c]=a;
     const srcIdx=from.r*COLS+from.c, dstIdx=to.r*COLS+to.c;
-    const runs=findRuns(after).filter(run=>run.indices.includes(srcIdx)||run.indices.includes(dstIdx));
+    // The tutorial only confirms the special's own immediate shape.
+    // Do not add speculative normal matches or secondary detonations.
+    const runs=effect ? [] : findRuns(after).filter(run=>run.indices.includes(srcIdx)||run.indices.includes(dstIdx));
     if(!effect && !runs.length)return;
     const cleared=new Set(runs.flatMap(run=>run.indices));
     if(effect) for(const idx of specialArea(effect,to.r,to.c))cleared.add(idx);
@@ -247,6 +248,8 @@ function solve(board) {
       if(r2>=ROWS||c2>=COLS)continue;
       const a=board[r][c],b=board[r2][c2];
       if(a==='S'||b==='S')continue;
+      // Special-on-special combinations are not explained in the supplied tutorial.
+      if(isSpecial(a)&&isSpecial(b))continue;
       const p={r,c},q={r:r2,c:c2};
       if(isSpecial(a))pushMove(p,q,a);
       if(isSpecial(b))pushMove(q,p,b);
