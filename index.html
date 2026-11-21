@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0e1521" />
+  <meta name="description" content="離線 6×7 三消遊戲解題器：上傳截圖，自動辨識棋盤，列出所有有效交換與各色消除數。純 JavaScript，不模擬掉落。" />
+  <title>6×7 糖果交換解題器 · 離線暴力搜尋</title>
+  <style>
+:root{color-scheme:dark;--bg:#0e1521;--surface:#172130;--surface-alt:#1c293a;--stroke:#304157;--text:#e8f0fa;--muted:#a0aec0;--accent:#85e0ba;--accent-strong:#19b980;--focus:#87d9ff;--shadow:0 12px 35px #0002;--white:#fff}
+:root[data-theme="light"]{color-scheme:light;--bg:#f4f8f6;--surface:#fff;--surface-alt:#eaf4ee;--stroke:#d2e0d7;--text:#223447;--muted:#58717d;--accent:#087f59;--accent-strong:#0a9567;--focus:#246eac;--shadow:0 8px 35px #26433113;--white:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.55}button,input{font:inherit}button{cursor:pointer}button:focus-visible,summary:focus-visible,.dropzone:focus-visible,.cell:focus-visible,.result-row:focus-visible{outline:3px solid var(--focus);outline-offset:3px}.topbar{border-bottom:1px solid var(--stroke);min-height:73px;display:flex;align-items:center;justify-content:space-between;padding:10px max(22px,calc((100vw - 1190px)/2))}.brand{display:flex;align-items:center;gap:11px;font-size:17px;letter-spacing:.1px}.brand strong{font-weight:760}.brand small{display:block;font-size:11px;color:var(--muted);margin-top:-4px;letter-spacing:.8px}.logo{width:38px;height:38px;display:grid;place-items:center;color:#103824;font-size:23px;border-radius:11px;background:linear-gradient(135deg,#b7ffe0,#56d7a5);box-shadow:0 3px 14px #1ac98b48}.container{max-width:1200px;margin:auto;padding:30px 24px 70px}.intro{padding-bottom:24px}.intro h1{font-weight:850;font-size:clamp(28px,3vw,40px);letter-spacing:-1px;margin:8px 0 4px;line-height:1.28}.intro p{color:var(--muted);margin:0;font-size:15px}.eyebrow{font-size:12px;letter-spacing:1px;color:var(--accent);font-weight:700}.live-dot{display:inline-block;background:var(--accent-strong);height:8px;width:8px;border-radius:100%;margin-right:5px;box-shadow:0 0 0 4px #36db8730}.accent{color:var(--accent)}.nowrap{white-space:nowrap}.panel{background:var(--surface);border:1px solid var(--stroke);border-radius:18px;box-shadow:var(--shadow);padding:21px;min-width:0}.heading-row,.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.heading-row>div:first-child,.section-title>div:first-child{display:flex;align-items:center;gap:9px}.heading-row h2,.section-title h2{font-size:17px;margin:0;font-weight:750}.step{display:inline-flex;justify-content:center;align-items:center;font-size:11px;color:var(--accent);font-weight:760;background:color-mix(in srgb,var(--accent) 13%,transparent);border:1px solid color-mix(in srgb,var(--accent) 21%,transparent);width:28px;height:26px;border-radius:8px}.hint,.section-title small{font-size:12px;color:var(--muted)}.ghost,.secondary{border:1px solid var(--stroke);background:var(--surface-alt);color:var(--text);border-radius:9px;padding:9px 13px;font-weight:620}.ghost:hover,.secondary:hover{border-color:var(--accent-strong);background:color-mix(in srgb,var(--accent-strong) 14%,var(--surface-alt))}.ghost.small{font-size:13px}.dropzone{border:2px dashed color-mix(in srgb,var(--accent-strong) 48%,var(--stroke));border-radius:14px;min-height:150px;padding:21px;display:flex;align-items:center;justify-content:center;gap:5px;flex-direction:column;background:linear-gradient(130deg,color-mix(in srgb,var(--accent-strong) 8%,transparent),transparent);text-align:center;transition:.2s}.dropzone:hover,.dropzone.dragover{background:color-mix(in srgb,var(--accent) 12%,var(--surface));border-color:var(--accent-strong)}.dropzone strong{font-size:15px}.dropzone small{color:var(--muted);font-size:12px}.upload-icon{background:color-mix(in srgb,var(--accent) 19%,transparent);border-radius:12px;color:var(--accent);font-size:32px;width:52px;height:52px;display:grid;place-items:center;line-height:1;margin-bottom:7px}.action-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.action-row button{font-size:12px}.status{font-size:13px;color:var(--muted);margin:12px 0 0}.status.ok{color:var(--accent)}.status.warn{color:#f6c179}.workspace{display:grid;grid-template-columns:minmax(0,1.07fr) minmax(0,1fr);align-items:start;gap:18px;margin-top:19px}.canvas-wrap{background:repeating-conic-gradient(#121b28 0 25%,#192332 0 50%) 0 0/24px 24px;border:1px solid var(--stroke);border-radius:12px;display:flex;justify-content:center;overflow:hidden}.canvas-wrap canvas{display:block;width:100%;height:auto;max-width:600px;object-fit:contain}.move-pill{border:1px solid color-mix(in srgb,var(--accent) 40%,var(--stroke));border-radius:9px;margin-top:12px;padding:10px 12px;background:color-mix(in srgb,var(--accent) 8%,var(--surface));font-size:13px;font-weight:650}.panel-note{font-size:12px;color:var(--muted);margin:10px 0 0}.manual-details{margin-top:16px;border-top:1px solid var(--stroke);padding-top:12px}.manual-details summary{color:var(--accent);font-weight:600;cursor:pointer;font-size:13px}.manual-content p{font-size:12px;color:var(--muted);margin:10px 0}.manual-hint{margin:8px 0}.original-image-box{max-height:520px;overflow:auto;background:#101010;border-radius:9px;border:1px solid var(--stroke)}.original-image-box canvas{display:block;width:100%;height:auto;cursor:crosshair}.board-edit-outer{max-width:510px;margin:0 auto}.column-numbers{display:grid;grid-template-columns:repeat(6,1fr);padding:0 1px 0 1px;gap:5px;margin-bottom:6px;color:var(--muted);text-align:center;font-size:12px;font-weight:700}.board-edit-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;background:#335d3b;border-radius:12px;padding:7px}.cell{position:relative;min-width:0;aspect-ratio:1/1;border:2px solid transparent;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:clamp(21px,2.6vw,36px);line-height:1;transition:background .1s,border .1s;user-select:none}.cell .pos{position:absolute;left:5px;top:4px;color:#24323eaa;font-weight:800;font-size:10px;line-height:1}.cell.red{background:linear-gradient(155deg,#ffc2ab,#ff817b);color:#723025}.cell.yellow{background:linear-gradient(155deg,#fff6a6,#f5bc3c);color:#754f03}.cell.purple{background:linear-gradient(155deg,#e8d4ff,#a889dc);color:#442271}.cell.pink{background:linear-gradient(155deg,#ffe0ed,#f5a9bf);color:#79314a}.cell.special{background:linear-gradient(155deg,#dce8ed,#a4b4bc);color:#243943}.cell.match{box-shadow:inset 0 0 0 3px #24ba77}.cell.from{border-color:#f48036;box-shadow:inset 0 0 0 2px #d44823,0 0 0 2px #f4803644}.cell.to{border-color:#30a5fb;box-shadow:inset 0 0 0 2px #1970bd,0 0 0 2px #30a5fb44}.cell.editing{outline:3px solid #fff;outline-offset:-6px}.cell:hover{filter:brightness(1.06)}.editor-tools{margin:18px auto 0;max-width:510px}.edit-message{font-size:13px;color:var(--muted);margin-bottom:9px}.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.palette button{min-width:0;border:1px solid var(--stroke);background:var(--surface-alt);padding:6px 3px;border-radius:10px;font-size:12px;color:var(--text)}.palette button .pal-icon{font-size:20px;display:block;margin-bottom:2px}.palette button:hover,.palette button.chosen{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 15%,var(--surface-alt))}.palette button:disabled{opacity:.38;cursor:not-allowed}.summary-area{margin-top:23px}.section-title{margin:0 2px 12px}.quick-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.quick-card{min-width:0;background:var(--surface);color:var(--text);border:1px solid var(--stroke);border-radius:14px;text-align:left;padding:14px 13px;transition:.15s}.quick-card:hover{transform:translateY(-2px);border-color:var(--accent-strong)}.quick-card.selected{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}.quick-card:disabled{opacity:.65;cursor:default;transform:none}.quick-card .kind{color:var(--muted);display:block;font-size:12px}.quick-card .value{display:block;font-size:26px;font-weight:830;margin:3px 0 2px}.quick-card .path{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}.result-panel{margin-top:21px}.count-bubble{display:inline-flex;min-width:31px;justify-content:center;border-radius:99px;padding:1px 9px;margin-left:5px;color:#093d2b;background:var(--accent);font-size:14px}.sort-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;font-size:13px;color:var(--muted)}.sort-buttons{display:flex;gap:7px;flex-wrap:wrap}.sort-buttons button{border:1px solid var(--stroke);border-radius:30px;background:var(--surface-alt);padding:5px 12px;color:var(--text);font-weight:650;font-size:12px}.sort-buttons button.active{background:var(--accent);border-color:var(--accent);color:#082f25}.table-scroll{overflow:auto;border-radius:11px;border:1px solid var(--stroke)}table{border-collapse:collapse;text-align:center;width:100%;min-width:730px;font-size:13px}thead{background:var(--surface-alt)}th{padding:12px 8px;white-space:nowrap;font-weight:800}td{border-top:1px solid var(--stroke);padding:10px 8px}th:nth-child(2),th:nth-child(3),td:nth-child(2),td:nth-child(3){text-align:left}tbody tr{cursor:pointer}tbody tr:hover{background:color-mix(in srgb,var(--accent) 8%,var(--surface))}tbody tr.selected{background:color-mix(in srgb,var(--accent) 13%,var(--surface))}td:first-child{color:var(--muted);font-variant-numeric:tabular-nums}td .xy{display:block;font-weight:700}td .detail{display:block;color:var(--muted);font-size:11px}.quantity{font-variant-numeric:tabular-nums;font-weight:740}.quantity.positive{font-size:14px}.quantity.off{color:var(--muted);opacity:.5;font-weight:400}.total-qty{font-size:16px;font-weight:860;color:var(--accent)}.col-sort{border:0;background:none;color:inherit;font-weight:inherit;padding:0;font-size:inherit}.col-sort:hover{color:var(--accent)}.empty{padding:28px;text-align:center;color:var(--muted);font-size:13px}.result-heading{margin-bottom:14px}footer{border-top:1px solid var(--stroke);margin-top:25px;padding-top:14px;color:var(--muted);font-size:12px}footer p{margin:7px 0}
+@media(max-width:950px){.workspace{grid-template-columns:1fr}.quick-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.board-edit-outer,.editor-tools{max-width:530px}.cell{font-size:32px}}
+@media(max-width:550px){.container{padding:23px 12px 45px}.topbar{padding:10px 14px}.panel{padding:13px;border-radius:14px}.intro h1{font-size:28px}.heading-row{align-items:flex-start}.heading-row .hint{max-width:40%;text-align:right}.quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-card:last-child{grid-column:span 2}.quick-card{padding:10px 12px}.cell{font-size:clamp(18px,6vw,30px);border-radius:7px}.board-edit-grid{gap:3px;padding:5px}.palette{gap:4px}.palette button{font-size:11px}.upload-panel .action-row button{flex-grow:1}.dropzone{min-height:138px;padding:15px}.dropzone strong{font-size:13px}.section-title small{display:none}.result-panel .heading-row .hint{display:none}}
+
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo">◆</span><span>KK <strong>Candy Solver</strong><small>6 × 7 立即消除分析</small></span></div>
+    <button id="themeToggle" class="ghost small" type="button" aria-label="切換深淺色模式">☀︎ / ☾</button>
+  </header>
+  <main class="container">
+    <div class="intro">
+      <div class="eyebrow"><span class="live-dot"></span> 100% 本機運算 · 不上傳圖片到伺服器</div>
+      <h1>上傳截圖，找出<span class="accent">最佳交換</span></h1>
+      <p>辨識 6 欄 × 7 排，枚舉所有 71 種相鄰交換，只算<span class="nowrap">「這一步」</span>能直接消除的糖果。</p>
+    </div>
+
+    <section class="panel upload-panel" aria-labelledby="uploadTitle">
+      <div class="heading-row">
+        <div><span class="step">01</span> <h2 id="uploadTitle">上傳遊戲截圖</h2></div>
+        <span class="hint">支援 PNG / JPG / WebP · 可直接貼上截圖</span>
+      </div>
+      <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp,image/*" hidden />
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="選擇或拖曳遊戲截圖">
+        <span class="upload-icon">↥</span>
+        <strong>拖曳截圖到這裡，或點擊選擇圖片</strong>
+        <small>選好後立即自動定位、辨識、計算；手機也可以直接選照片</small>
+      </div>
+      <div class="action-row">
+        <button class="secondary" id="demoButton" type="button">載入範例棋盤</button>
+        <button class="secondary" id="csvButton" type="button">↓ 匯出 CSV</button>
+        <button class="secondary" id="copyButton" type="button">⧉ 複製 ASCII</button>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <div class="workspace" id="boardSection">
+      <section class="panel image-panel" aria-labelledby="previewTitle">
+        <div class="heading-row">
+          <div><span class="step">02</span> <h2 id="previewTitle">棋盤預覽與交換箭頭</h2></div>
+          <span class="hint">第 1 排在最上方</span>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="boardCanvas" aria-label="棋盤截圖、行列標號與目前選定的交換箭頭"></canvas>
+        </div>
+        <div class="move-pill" id="moveInfo">等待分析</div>
+        <p class="panel-note">點棋盤任一格，可以在右側修正顏色。點下方表格的路徑，箭頭會跟著移動。</p>
+        <details class="manual-details" id="manualDetails">
+          <summary>棋盤定位不正確？手動框選</summary>
+          <div class="manual-content">
+            <p>按「開始框選」，在下方原始截圖依序點選綠色棋盤的<strong>左上角</strong>和<strong>右下角</strong>，就會重新辨識。</p>
+            <button id="manualButton" type="button" class="secondary">開始框選（點兩個角）</button>
+            <div id="manualHint" class="hint manual-hint"></div>
+            <div class="original-image-box"><canvas id="sourceCanvas" aria-label="原始截圖，用來設定棋盤範圍"></canvas></div>
+          </div>
+        </details>
+      </section>
+      <section class="panel editor-panel" aria-labelledby="gridTitle">
+        <div class="heading-row">
+          <div><span class="step">03</span> <h2 id="gridTitle">6 × 7 辨識棋盤</h2></div>
+          <span class="hint">點格子修正辨識</span>
+        </div>
+        <div class="board-edit-outer">
+          <div class="column-numbers" id="columnNumbers" aria-hidden="true"></div>
+          <div class="board-edit-grid" id="editorGrid" role="grid" aria-label="點選任一格以手動修正糖果"></div>
+        </div>
+        <div class="editor-tools">
+          <div class="edit-message" id="editMessage">選一格，就能改成紅／黃／紫／粉／特殊。</div>
+          <div class="palette" id="palette" aria-label="將選擇的格子改成指定顏色"></div>
+        </div>
+        <p class="panel-note">「特殊／未知」格暫不參與交換或消除。如果圖片辨識不正確，修改後會立即重新計算。</p>
+      </section>
+    </div>
+
+    <section class="summary-area" aria-labelledby="summaryTitle">
+      <div class="section-title"><div><span class="step">04</span><h2 id="summaryTitle">各顏色最多可消除</h2></div><small>點選卡片預覽對應路徑</small></div>
+      <div id="quickStats" class="quick-grid"></div>
+    </section>
+
+    <section class="panel result-panel" id="resultsSection" aria-labelledby="resultTitle">
+      <div class="heading-row result-heading">
+        <div><span class="step">05</span><h2 id="resultTitle">所有有效交換 <span id="validCount" class="count-bubble">0</span></h2></div>
+        <span class="hint">由第 1 排左上角開始，欄由左到右</span>
+      </div>
+      <div class="sort-row"><span>排序方式</span><div class="sort-buttons" id="sortButtons"></div></div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr>
+            <th scope="col">#</th><th scope="col">從哪格</th><th scope="col">到哪格</th>
+            <th scope="col"><button class="col-sort" type="button" data-sort="R">🍓 紅</button></th>
+            <th scope="col"><button class="col-sort" type="button" data-sort="Y">🍊 黃</button></th>
+            <th scope="col"><button class="col-sort" type="button" data-sort="G">🍇 紫</button></th>
+            <th scope="col"><button class="col-sort" type="button" data-sort="P">🍑 粉</button></th>
+            <th scope="col"><button class="col-sort" type="button" data-sort="total">合計</button></th>
+          </tr></thead>
+          <tbody id="moveRows"></tbody>
+        </table>
+        <div id="noResults" class="empty" hidden>此棋盤沒有能立即形成三消的相鄰交換，請確認辨識是否正確。</div>
+      </div>
+    </section>
+    <footer>
+      <p>計算範圍：交換後立刻形成的橫向／縱向 3 個以上連線，交叉格不重複計數。<strong>不模擬掉落、補糖、連鎖、道具或特殊效果。</strong></p>
+      <p>靜態網站 · 原生 JavaScript · 無第三方函式庫 · 圖片只留在目前瀏覽器分頁。</p>
+    </footer>
+  </main>
+  <script>
+/**
+ * 6x7 match-three single-move solver.
+ * This game engine intentionally does not simulate gravity, refill, cascades,
+ * power-ups, or special effects. Coordinates are 1-based in the UI.
+ */
+const ROWS = 7;
+const COLS = 6;
+const TYPES = Object.freeze({
+  R: { name: '紅色（草莓）', short: '紅', emoji: '🍓', css: 'red' },
+  Y: { name: '黃色（橘子）', short: '黃', emoji: '🍊', css: 'yellow' },
+  G: { name: '紫色（葡萄）', short: '紫', emoji: '🍇', css: 'purple' },
+  P: { name: '粉紅色（桃子）', short: '粉', emoji: '🍑', css: 'pink' },
+  S: { name: '特殊／未知', short: '特', emoji: '❔', css: 'special' },
+});
+const COLORS = ['R', 'Y', 'G', 'P'];
+const DEMO_BOARD = [
+  'PGRYPP',
+  'RRSGYY',
+  'PYYGYP',
+  'YGRYRP',
+  'GPYPYY',
+  'YYPRPY',
+  'YPYGRR',
+].map(row => row.split(''));
+
+function assertBoard(board) {
+  if (!Array.isArray(board) || board.length !== ROWS ||
+      !board.every(row => Array.isArray(row) && row.length === COLS &&
+        row.every(cell => Object.hasOwn(TYPES, cell)))) {
+    throw new Error('棋盤必須是 7 排 × 6 欄，每格為 R/Y/G/P/S 其中之一。');
+  }
+}
+
+/**
+ * Extract ALL horizontal/vertical runs of >=3. Special cells are non-matching.
+ * Returns an array of runs with flat (row * COLS + col) indices.
+ */
+function findRuns(board) {
+  const runs = [];
+  for (let r = 0; r < ROWS; r++) {
+    let c = 0;
+    while (c < COLS) {
+      const type = board[r][c];
+      let end = c + 1;
+      while (end < COLS && board[r][end] === type) end++;
+      if (end - c >= 3 && type !== 'S') {
+        runs.push({ type, indices: Array.from({ length: end - c }, (_, i) => r * COLS + c + i) });
+      }
+      c = end;
+    }
+  }
+  for (let c = 0; c < COLS; c++) {
+    let r = 0;
+    while (r < ROWS) {
+      const type = board[r][c];
+      let end = r + 1;
+      while (end < ROWS && board[end][c] === type) end++;
+      if (end - r >= 3 && type !== 'S') {
+        runs.push({ type, indices: Array.from({ length: end - r }, (_, i) => (r + i) * COLS + c) });
+      }
+      r = end;
+    }
+  }
+  return runs;
+}
+
+/**
+ * Enumerate 71 adjacent exchanges (35 horizontal + 36 vertical).
+ * Count only runs containing at least one swapped position. In a normal
+ * stable match-3 board this is exactly the first clear before gravity.
+ * Overlapping runs use a set to avoid double-counting shared cells.
+ */
+function solve(board) {
+  assertBoard(board);
+  const results = [];
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      for (const [dr, dc] of [[0, 1], [1, 0]]) {
+        const r2 = r + dr, c2 = c + dc;
+        if (r2 >= ROWS || c2 >= COLS) continue;
+        const a = board[r][c], b = board[r2][c2];
+        if (a === 'S' || b === 'S' || a === b) continue;
+        const after = board.map(row => [...row]);
+        after[r][c] = b;
+        after[r2][c2] = a;
+        const srcIdx = r * COLS + c;
+        const dstIdx = r2 * COLS + c2;
+        const runs = findRuns(after).filter(run => run.indices.includes(srcIdx) || run.indices.includes(dstIdx));
+        if (!runs.length) continue;
+        const matches = [...new Set(runs.flatMap(run => run.indices))].sort((x,y) => x-y);
+        const counts = Object.fromEntries(COLORS.map(type => [type, 0]));
+        for (const idx of matches) counts[after[Math.floor(idx / COLS)][idx % COLS]]++;
+        results.push({
+          id: `${r}-${c}-${r2}-${c2}`,
+          from: { r, c }, to: { r: r2, c: c2 },
+          before: { a, b }, counts,
+          total: matches.length, matched: matches.map(idx => ({ r: Math.floor(idx / COLS), c: idx % COLS })),
+        });
+      }
+    }
+  }
+  return results;
+}
+
+function sortMoves(moves, criterion='total') {
+  const key = criterion === 'total' ? 'total' : criterion;
+  return [...moves].sort((a, b) =>
+    ((criterion === 'total' ? b.total - a.total : b.counts[key] - a.counts[key])) ||
+    (b.total - a.total) ||
+    (a.from.r - b.from.r) ||
+    (a.from.c - b.from.c) ||
+    (a.to.r - b.to.r) ||
+    (a.to.c - b.to.c)
+  );
+}
+
+function coord({r,c}) { return `${r+1}排${c+1}欄`; }
+function compactCoord({r,c}) { return `R${r+1}C${c+1}`; }
+
+function asciiBoard(board, move=null) {
+  assertBoard(board);
+  const marks = new Set(move ? [move.from.r * COLS + move.from.c, move.to.r * COLS + move.to.c] : []);
+  const lines = ['       1    2    3    4    5    6'];
+  for (let r=0;r<ROWS;r++) {
+    const s = board[r].map((type,c) => marks.has(r*COLS+c) ? `[${type}]` : ` ${type} `).join(' ');
+    lines.push(`${r+1}排 | ${s} |`);
+    if (move && move.from.r === r && move.to.r === r + 1 && move.from.c === move.to.c) {
+      lines.push('        ' + '     '.repeat(move.from.c) + '      ↓');
+    }
+  }
+  if (move) lines.push(`交換：${coord(move.from)} → ${coord(move.to)}；消除 ${move.total} 顆`);
+  lines.push('R=紅色  Y=黃色  G=紫色  P=粉紅色  S=特殊');
+  return lines.join('\n');
+}
+
+/** Image analysis only; no ML / no network / no dependencies. */
+
+const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+function isBoardGreen(r,g,b) {
+  return g > r * 1.055 && g > b * 1.075 && g >= 65 && r < 212;
+}
+
+/**
+ * Approximate the board via the largest plausible connected green region.
+ * The screenshot background is yellow while the grid is a continuous green
+ * sheet (including the tile separators). Use a downsampled 4-connected flood.
+ */
+function locateBoard(imageData) {
+  const {width: W, height: H, data} = imageData;
+  const scale = Math.min(1, 480 / W, 920 / H);
+  const w = Math.floor(W * scale), h = Math.floor(H * scale);
+  const n = w*h;
+  const mask = new Uint8Array(n);
+  const visited = new Uint8Array(n);
+  const q = new Int32Array(n);
+  for (let y=0;y<h;y++) {
+    const sy = Math.min(H-1, Math.floor((y+0.5)/scale));
+    for (let x=0;x<w;x++) {
+      const sx = Math.min(W-1, Math.floor((x+0.5)/scale));
+      const i = 4 * (sy*W+sx);
+      mask[y*w+x] = isBoardGreen(data[i],data[i+1],data[i+2]) ? 1 : 0;
+    }
+  }
+  let best = null;
+  for (let start=0;start<n;start++) {
+    if (!mask[start] || visited[start]) continue;
+    let head=0,tail=0; q[tail++]=start;visited[start]=1;
+    let minX=w, maxX=0, minY=h,maxY=0;
+    while (head<tail) {
+      const p=q[head++], x=p%w, y=(p/w)|0;
+      if(x<minX) minX=x;if(x>maxX) maxX=x;
+      if(y<minY) minY=y;if(y>maxY) maxY=y;
+      const tryAdd=(v)=>{if(mask[v]&&!visited[v]){visited[v]=1;q[tail++]=v;}};
+      if(x>0)tryAdd(p-1);if(x<w-1)tryAdd(p+1);
+      if(y>0)tryAdd(p-w);if(y<h-1)tryAdd(p+w);
+    }
+    const bw=maxX-minX+1,bh=maxY-minY+1,ratio=bw/bh;
+    if (bw < w*.35 || bh < h*.16 || bh > h*.82 || ratio < .68 || ratio > 1.10) continue;
+    const density=tail/(bw*bh);
+    if(density<.17)continue;
+    const score=tail*(1-Math.min(1,Math.abs(ratio - COLS/ROWS))*0.27);
+    if(!best || score>best.score)best={x:minX,y:minY,w:bw,h:bh,score,density};
+  }
+  if(!best)return null;
+  const outer={x:best.x/scale,y:best.y/scale,w:best.w/scale,h:best.h/scale};
+  // Ignore the surrounding ~1.4% green border; leave 6x7 tile area.
+  return {
+    x:clamp(outer.x+outer.w*.014,0,W-1),
+    y:clamp(outer.y+outer.h*.014,0,H-1),
+    w:Math.min(W,outer.w*.972),
+    h:Math.min(H,outer.h*.971),
+    source:'auto',
+    density:best.density,
+  };
+}
+
+function rgbToHue(r,g,b) {
+  const high=Math.max(r,g,b),low=Math.min(r,g,b),d=high-low;
+  if(d===0)return {h:0,s:0,v:high/255};
+  let h=high===r? ((g-b)/d)%6 : high===g? (b-r)/d+2 : (r-g)/d+4;
+  h=h*60;
+  if(h<0)h+=360;
+  return {h,s:d/high,v:high/255};
+}
+
+/** Classify a candy by pixel HSV distribution in its central body. */
+function classifyCell(imageData,bounds,r,c) {
+  const {width: W,height:H,data}=imageData;
+  const cw=bounds.w/COLS,ch=bounds.h/ROWS;
+  const x=bounds.x+c*cw, y=bounds.y+r*ch;
+  const x0=clamp(Math.round(x+cw*.21),0,W-1);
+  const x1=clamp(Math.round(x+cw*.79),0,W);
+  const y0=clamp(Math.round(y+ch*.26),0,H-1);
+  const y1=clamp(Math.round(y+ch*.81),0,H);
+  const hist={red:0,yellow:0,green:0,blue:0,purple:0,pink:0};
+  let n=0;
+  const step=Math.max(1,Math.floor(Math.min(cw,ch)/45));
+  for(let iy=y0;iy<y1;iy+=step){
+    for(let ix=x0;ix<x1;ix+=step){
+      const k=4*(iy*W+ix),rr=data[k],gg=data[k+1],bb=data[k+2];
+      const {h,s,v}=rgbToHue(rr,gg,bb);
+      if(s<.20 || v<.28)continue;
+      n++;
+      if(h<18)hist.red++;
+      else if(h<66)hist.yellow++;
+      else if(h<170)hist.green++;
+      else if(h<250)hist.blue++;
+      else if(h<328)hist.purple++;
+      else hist.pink++;
+    }
+  }
+  if(n<30)return {type:'S',confidence:0,hist};
+  const p=Object.fromEntries(Object.entries(hist).map(([k,v])=>[k,v/n]));
+  // Special jars have visible blue/cyan swirl; regular sweets do not.
+  if(p.blue>.024)return {type:'S',confidence:clamp(p.blue/.06,0,1),hist};
+  if(p.purple>.29)return {type:'G',confidence:clamp(p.purple/.54,0,1),hist};
+  if(p.yellow>.57)return {type:'Y',confidence:clamp(p.yellow/.75,0,1),hist};
+  if(p.pink>.055 && p.red>.16)return {type:'P',confidence:clamp(p.pink/.13,0,1),hist};
+  if(p.red>.38)return {type:'R',confidence:clamp(p.red/.67,0,1),hist};
+  return {type:'S',confidence:0,hist};
+}
+
+function recognizeGrid(imageData,bounds) {
+  const details=Array.from({length:ROWS},(_,r)=>Array.from({length:COLS},(_,c)=>classifyCell(imageData,bounds,r,c)));
+  return {board:details.map(row=>row.map(tile=>tile.type)),details};
+}
+
+
+
+
+const $ = id => document.getElementById(id);
+const elements = Object.fromEntries([
+  'fileInput','dropzone','status','demoButton','csvButton','copyButton','themeToggle',
+  'boardCanvas','moveInfo','editorGrid','columnNumbers','editMessage','palette',
+  'quickStats','sortButtons','moveRows','validCount','noResults','boardSection',
+  'manualButton','manualDetails','manualHint','sourceCanvas'
+].map(id=>[id,$(id)]));
+const state = {
+  board: DEMO_BOARD.map(row=>[...row]), details:null, imageCanvas:null,
+  imageData:null, bounds:null, moves:[], sort:'total', selectedMoveId:null,
+  editCell:null, manualActive:false, manualFirst:null, demo:true,
+};
+const PANEL_SIZE = 88, PANEL_LEFT = 35, PANEL_TOP = 35, PANEL_RIGHT = 8, PANEL_BOTTOM = 8;
+const OPTIONS = [
+  ['total','全部最多','Σ'],['R','紅色最多','🍓'],['Y','黃色最多','🍊'],
+  ['G','紫色最多','🍇'],['P','粉紅最多','🍑']
+];
+
+function setStatus(message,kind='') {
+  elements.status.textContent = message;
+  elements.status.className = 'status ' + kind;
+}
+function selectedMove() { return state.moves.find(m=>m.id===state.selectedMoveId) || null; }
+function moveCount(move, key) { return key==='total' ? move.total : move.counts[key]; }
+function bestMove(key) {
+  const sorted = sortMoves(state.moves,key);
+  return sorted.length && moveCount(sorted[0],key)>0 ? sorted[0] : null;
+}
+
+function recalculate(preferBest=false) {
+  state.moves = solve(state.board);
+  const current = selectedMove();
+  if (preferBest || !current) state.selectedMoveId = sortMoves(state.moves,state.sort)[0]?.id ?? null;
+  renderEverything();
+}
+function renderEverything() {
+  renderEditor(); renderPalette(); renderQuickStats(); renderSortButtons();
+  renderTable(); renderBoard(); renderInfo();
+  elements.validCount.textContent = String(state.moves.length);
+  elements.noResults.hidden = state.moves.length > 0;
+  elements.manualDetails.style.display = state.imageCanvas ? '' : 'none';
+}
+function renderSortButtons() {
+  const frag=document.createDocumentFragment();
+  for(const [key,label] of OPTIONS){
+    const btn=document.createElement('button');
+    btn.type='button'; btn.textContent=label;
+    if(state.sort===key) btn.classList.add('active');
+    btn.setAttribute('aria-pressed',String(state.sort===key));
+    btn.addEventListener('click',()=>{
+      state.sort=key;
+      const best=bestMove(key);
+      if(best)state.selectedMoveId=best.id;
+      renderEverything();
+    });
+    frag.append(btn);
+  }
+  elements.sortButtons.replaceChildren(frag);
+}
+function renderQuickStats() {
+  const frag=document.createDocumentFragment();
+  for(const [key,label,emoji] of OPTIONS) {
+    const best=bestMove(key),count=best ? moveCount(best,key) : 0;
+    const btn=document.createElement('button');
+    btn.type='button'; btn.className='quick-card'; btn.disabled=!best;
+    if(best && best.id===state.selectedMoveId) btn.classList.add('selected');
+    const top=document.createElement('span');top.className='kind';top.textContent=`${emoji} ${label}`;
+    const val=document.createElement('strong');val.className='value';val.textContent=`${count} 顆`;
+    const path=document.createElement('span');path.className='path';
+    path.textContent=best?`${compactCoord(best.from)} ↔ ${compactCoord(best.to)}`:'目前沒有可消除路徑';
+    btn.append(top,val,path);
+    if(best)btn.addEventListener('click',()=>{
+      state.sort=key;
+      state.selectedMoveId=best.id;
+      renderEverything();
+      elements.boardSection.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+    frag.append(btn);
+  }
+  elements.quickStats.replaceChildren(frag);
+}
+function renderTable() {
+  const list=sortMoves(state.moves,state.sort);
+  const frag=document.createDocumentFragment();
+  for(let i=0;i<list.length;i++){
+    const move=list[i];
+    const tr=document.createElement('tr');tr.className='result-row';
+    if(move.id===state.selectedMoveId)tr.classList.add('selected');
+    tr.tabIndex=0;tr.setAttribute('aria-label',`${coord(move.from)} 交換 ${coord(move.to)}，共消除 ${move.total} 顆`);
+    const td=document.createElement('td');td.textContent=String(i+1);tr.append(td);
+    for(const p of [move.from,move.to]){
+      const td=document.createElement('td');
+      const xy=document.createElement('span');xy.className='xy';xy.textContent=`第 ${p.r+1} 排 · 第 ${p.c+1} 欄`;
+      const more=document.createElement('span');more.className='detail';more.textContent=compactCoord(p);
+      td.append(xy,more);tr.append(td);
+    }
+    for(const color of COLORS){
+      const td=document.createElement('td');const num=document.createElement('span');
+      num.className='quantity ' + (move.counts[color]?'positive':'off');
+      num.textContent=move.counts[color] ? String(move.counts[color]) : '—';
+      td.append(num);tr.append(td);
+    }
+    const tdTotal=document.createElement('td');const sum=document.createElement('strong');
+    sum.className='total-qty';sum.textContent=String(move.total);tdTotal.append(sum);tr.append(tdTotal);
+    const choose=()=>{
+      state.selectedMoveId=move.id;
+      renderEverything();
+      elements.boardSection.scrollIntoView({behavior:'smooth',block:'start'});
+    };
+    tr.addEventListener('click',choose);
+    tr.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();choose();}});
+    frag.append(tr);
+  }
+  elements.moveRows.replaceChildren(frag);
+}
+function renderEditor() {
+  const move=selectedMove();
+  const matched=new Set(move?.matched.map(({r,c})=>r*COLS+c) ?? []);
+  elements.columnNumbers.replaceChildren(...Array.from({length:COLS},(_,i)=>{
+    const item=document.createElement('span');item.textContent=String(i+1);return item;
+  }));
+  const frag=document.createDocumentFragment();
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+    const type=state.board[r][c];
+    const btn=document.createElement('button');btn.type='button';btn.className=`cell ${TYPES[type].css}`;
+    btn.textContent=TYPES[type].emoji;
+    btn.setAttribute('role','gridcell');
+    btn.setAttribute('aria-label',`${r+1}排${c+1}欄，${TYPES[type].name}`);
+    btn.title=`${r+1}排${c+1}欄 · ${TYPES[type].name}`;
+    const n=r*COLS+c;
+    if(matched.has(n))btn.classList.add('match');
+    if(move && move.from.r===r && move.from.c===c)btn.classList.add('from');
+    if(move && move.to.r===r && move.to.c===c)btn.classList.add('to');
+    if(state.editCell && state.editCell.r===r && state.editCell.c===c)btn.classList.add('editing');
+    if(c===0){const pos=document.createElement('span');pos.className='pos';pos.textContent=String(r+1);btn.append(pos);}
+    btn.addEventListener('click',()=>{state.editCell={r,c};renderEditor();renderPalette();});
+    frag.append(btn);
+  }
+  elements.editorGrid.replaceChildren(frag);
+}
+function renderPalette() {
+  const p=state.editCell;
+  elements.editMessage.textContent=p?
+    `修改第 ${p.r+1} 排第 ${p.c+1} 欄（目前：${TYPES[state.board[p.r][p.c]].name}）` :
+    '先選一格，就能改成紅／黃／紫／粉／特殊。';
+  const frag=document.createDocumentFragment();
+  for(const type of [...COLORS,'S']){
+    const btn=document.createElement('button');btn.type='button';
+    const ico=document.createElement('span');ico.className='pal-icon';ico.textContent=TYPES[type].emoji;
+    const txt=document.createElement('span');txt.textContent=TYPES[type].short;
+    btn.append(ico,txt);
+    btn.disabled=!p;btn.title=TYPES[type].name;
+    if(p && state.board[p.r][p.c]===type)btn.classList.add('chosen');
+    btn.addEventListener('click',()=>{
+      if(!state.editCell)return;
+      state.board[state.editCell.r][state.editCell.c]=type;
+      recalculate(true);
+      setStatus(`已修正 ${coord(state.editCell)} 為「${TYPES[type].name}」，重新找到 ${state.moves.length} 種有效交換。`,'ok');
+    });
+    frag.append(btn);
+  }
+  elements.palette.replaceChildren(frag);
+}
+function renderInfo(){
+  const move=selectedMove();
+  if(!move){elements.moveInfo.textContent='目前沒有有效交換；可檢查辨識結果或上傳新圖片。';return;}
+  const breakdown=COLORS.filter(c=>move.counts[c]).map(c=>`${TYPES[c].short}${move.counts[c]}`).join(' + ');
+  elements.moveInfo.textContent=`${coord(move.from)} ↔ ${coord(move.to)} ｜ 立即消除 ${move.total} 顆（${breakdown}）`;
+}
+
+function fitCanvas(canvas,width,height){
+  const dpr=Math.min(2,window.devicePixelRatio||1);
+  canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  return ctx;
+}
+function center(r,c){return {x:PANEL_LEFT+(c+.5)*PANEL_SIZE,y:PANEL_TOP+(r+.5)*PANEL_SIZE};}
+function renderBoard(){
+  const canvas=elements.boardCanvas;
+  const width=PANEL_LEFT+COLS*PANEL_SIZE+PANEL_RIGHT;
+  const height=PANEL_TOP+ROWS*PANEL_SIZE+PANEL_BOTTOM;
+  const ctx=fitCanvas(canvas,width,height);
+  ctx.fillStyle='#15212c';ctx.fillRect(0,0,width,height);
+  ctx.fillStyle='#dbeef0';ctx.font='bold 14px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
+  for(let c=0;c<COLS;c++)ctx.fillText(String(c+1),center(0,c).x,16);
+  for(let r=0;r<ROWS;r++)ctx.fillText(String(r+1),16,center(r,0).y);
+  if(state.imageCanvas && state.bounds){
+    const b=state.bounds;
+    ctx.drawImage(state.imageCanvas,b.x,b.y,b.w,b.h,PANEL_LEFT,PANEL_TOP,COLS*PANEL_SIZE,ROWS*PANEL_SIZE);
+  } else {
+    const bg={R:['#ffccb8','#ff8c76'],Y:['#fff19a','#fbbf45'],G:['#ddd0ff','#a88add'],P:['#ffe1e8','#efa3b8'],S:['#dae6eb','#91a2b1']};
+    for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+      const x=PANEL_LEFT+c*PANEL_SIZE,y=PANEL_TOP+r*PANEL_SIZE;
+      const grad=ctx.createLinearGradient(x,y,x+PANEL_SIZE,y+PANEL_SIZE);
+      const type=state.board[r][c];grad.addColorStop(0,bg[type][0]);grad.addColorStop(1,bg[type][1]);
+      ctx.fillStyle=grad;ctx.fillRect(x,y,PANEL_SIZE,PANEL_SIZE);
+      ctx.font='38px system-ui';ctx.textAlign='center';ctx.fillStyle='#fff';
+      ctx.fillText(TYPES[type].emoji,x+PANEL_SIZE/2,y+PANEL_SIZE/2+2);
+    }
+  }
+  ctx.strokeStyle='#17482555';ctx.lineWidth=1;
+  for(let c=0;c<=COLS;c++){
+    let x=PANEL_LEFT+c*PANEL_SIZE;ctx.beginPath();ctx.moveTo(x,PANEL_TOP);ctx.lineTo(x,PANEL_TOP+ROWS*PANEL_SIZE);ctx.stroke();
+  }
+  for(let r=0;r<=ROWS;r++){
+    let y=PANEL_TOP+r*PANEL_SIZE;ctx.beginPath();ctx.moveTo(PANEL_LEFT,y);ctx.lineTo(PANEL_LEFT+COLS*PANEL_SIZE,y);ctx.stroke();
+  }
+  const move=selectedMove();
+  if(move){
+    for(const {r,c} of move.matched){
+      const x=PANEL_LEFT+c*PANEL_SIZE,y=PANEL_TOP+r*PANEL_SIZE;
+      ctx.fillStyle='#42ef8530';ctx.fillRect(x+3,y+3,PANEL_SIZE-6,PANEL_SIZE-6);
+      ctx.strokeStyle='#2dea83';ctx.lineWidth=3;ctx.strokeRect(x+4,y+4,PANEL_SIZE-8,PANEL_SIZE-8);
+    }
+    for(const [point,color,name] of [[move.from,'#ff8532','起'],[move.to,'#32b4ff','終']]){
+      const x=PANEL_LEFT+point.c*PANEL_SIZE,y=PANEL_TOP+point.r*PANEL_SIZE;
+      ctx.strokeStyle='#0d1828';ctx.lineWidth=7;ctx.strokeRect(x+4,y+4,PANEL_SIZE-8,PANEL_SIZE-8);
+      ctx.strokeStyle=color;ctx.lineWidth=4;ctx.strokeRect(x+4,y+4,PANEL_SIZE-8,PANEL_SIZE-8);
+      ctx.fillStyle=color;ctx.fillRect(x+8,y+8,23,23);ctx.fillStyle='#072b34';ctx.font='bold 14px system-ui';ctx.fillText(name,x+19,y+20);
+    }
+    const a=center(move.from.r,move.from.c),b=center(move.to.r,move.to.c);
+    const vertical=move.from.c===move.to.c;
+    let x1,y1,x2,y2;
+    if(vertical){
+      const off=PANEL_SIZE*.33;x1=a.x+off;y1=a.y+17;x2=b.x+off;y2=b.y-17;
+    } else {
+      const off=PANEL_SIZE*.32;x1=a.x+17;y1=a.y-off;x2=b.x-17;y2=b.y-off;
+    }
+    ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.strokeStyle='#16212d';ctx.lineWidth=10;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+    ctx.strokeStyle='#fff73b';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+    const angle=Math.atan2(y2-y1,x2-x1),arrowLen=13;
+    ctx.fillStyle='#fff73b';ctx.strokeStyle='#16212d';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-arrowLen*Math.cos(angle-.55),y2-arrowLen*Math.sin(angle-.55));
+    ctx.lineTo(x2-arrowLen*Math.cos(angle+.55),y2-arrowLen*Math.sin(angle+.55));ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();
+  }
+  if(state.editCell){
+    const x=PANEL_LEFT+state.editCell.c*PANEL_SIZE,y=PANEL_TOP+state.editCell.r*PANEL_SIZE;
+    ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.setLineDash([6,4]);ctx.strokeRect(x+10,y+10,PANEL_SIZE-20,PANEL_SIZE-20);ctx.setLineDash([]);
+  }
+}
+
+function drawSourceCanvas(){
+  if(!state.imageCanvas)return;
+  const canvas=elements.sourceCanvas;
+  canvas.width=state.imageCanvas.width;canvas.height=state.imageCanvas.height;
+  const ctx=canvas.getContext('2d');ctx.drawImage(state.imageCanvas,0,0);
+  if(state.bounds){
+    const b=state.bounds;ctx.strokeStyle='#17ec8a';ctx.lineWidth=Math.max(2,canvas.width/180);
+    ctx.strokeRect(b.x,b.y,b.w,b.h);
+  }
+  if(state.manualFirst){
+    const {x,y}=state.manualFirst;ctx.fillStyle='#fa632d';ctx.beginPath();ctx.arc(x,y,Math.max(6,canvas.width/80),0,2*Math.PI);ctx.fill();
+  }
+}
+function editCellFromBoardClick(event){
+  const rect=elements.boardCanvas.getBoundingClientRect();
+  const width=PANEL_LEFT+COLS*PANEL_SIZE+PANEL_RIGHT,height=PANEL_TOP+ROWS*PANEL_SIZE+PANEL_BOTTOM;
+  const x=(event.clientX-rect.left)*width/rect.width,y=(event.clientY-rect.top)*height/rect.height;
+  const c=Math.floor((x-PANEL_LEFT)/PANEL_SIZE),r=Math.floor((y-PANEL_TOP)/PANEL_SIZE);
+  if(r<0||r>=ROWS||c<0||c>=COLS)return;
+  state.editCell={r,c};renderEditor();renderPalette();renderBoard();
+  elements.editMessage.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function normalizeOuter(x,y,w,h,source='manual'){
+  return {x:x+w*.014,y:y+h*.014,w:w*.972,h:h*.971,source};
+}
+function onSourceClick(event){
+  if(!state.manualActive||!state.imageCanvas)return;
+  const rect=elements.sourceCanvas.getBoundingClientRect();
+  const x=(event.clientX-rect.left)*elements.sourceCanvas.width/rect.width;
+  const y=(event.clientY-rect.top)*elements.sourceCanvas.height/rect.height;
+  if(!state.manualFirst){
+    state.manualFirst={x,y};
+    elements.manualHint.textContent='已記錄左上角；請再點棋盤右下角。';
+    drawSourceCanvas();return;
+  }
+  const first=state.manualFirst;
+  const lx=Math.min(x,first.x),ty=Math.min(y,first.y),w=Math.abs(x-first.x),h=Math.abs(y-first.y);
+  if(w<60 || h<70 || w/h<.58 || w/h>1.2){
+    elements.manualHint.textContent='選取範圍不合理，請重新點左上角、右下角。';
+    state.manualFirst=null;drawSourceCanvas();return;
+  }
+  state.bounds=normalizeOuter(lx,ty,w,h);
+  const result=recognizeGrid(state.imageData,state.bounds);
+  state.board=result.board;state.details=result.details;
+  state.manualActive=false;state.manualFirst=null;state.editCell=null;
+  recalculate(true);drawSourceCanvas();
+  elements.manualButton.textContent='重新框選';
+  elements.manualHint.textContent='手動定位完成，可繼續微調右側辨識棋盤。';
+  setStatus(`已手動定位並重新計算，找到 ${state.moves.length} 種有效交換。`,'ok');
+}
+
+async function decodeImage(file){
+  if(typeof createImageBitmap==='function')return createImageBitmap(file);
+  const url=URL.createObjectURL(file);
+  try{
+    const img=new Image();img.src=url;await img.decode();return img;
+  }finally{URL.revokeObjectURL(url);}
+}
+async function processImage(file){
+  if(!file || (!file.type.startsWith('image/') && !/\.(png|jpg|jpeg|webp)$/i.test(file.name??''))){
+    setStatus('請提供 PNG、JPG 或 WebP 圖片。','warn');return;
+  }
+  setStatus('正在本機辨識棋盤並分析所有相鄰交換…');
+  let bitmap;
+  try{
+    bitmap=await decodeImage(file);
+    const sourceWidth=bitmap.width||bitmap.naturalWidth, sourceHeight=bitmap.height||bitmap.naturalHeight;
+    const factor=Math.min(1,1200/sourceWidth,2400/sourceHeight);
+    const w=Math.max(1,Math.round(sourceWidth*factor));
+    const h=Math.max(1,Math.round(sourceHeight*factor));
+    const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+    const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(bitmap,0,0,w,h);
+    if(bitmap.close)bitmap.close();
+    const imageData=ctx.getImageData(0,0,w,h);
+    const located=locateBoard(imageData);
+    state.imageCanvas=canvas;state.imageData=imageData;
+    state.bounds=located??normalizeOuter(w*.105,h*.425,w*.79,h*.43,'estimated');
+    const result=recognizeGrid(imageData,state.bounds);
+    state.board=result.board;state.details=result.details;
+    state.demo=false;state.editCell=null;state.manualActive=false;state.manualFirst=null;
+    recalculate(true);drawSourceCanvas();
+    const special=state.board.flat().filter(t=>t==='S').length;
+    const low=result.details.flat().filter(t=>t.confidence<.63).length;
+    if(!located){
+      elements.manualDetails.open=true;
+      setStatus('未能可靠找到綠色棋盤，已套用暫時範圍。請用「手動框選」修正後再看結果。','warn');
+    } else if(low>2){
+      setStatus(`棋盤已定位，但有 ${low} 格辨識不夠確定，請核對 6×7 棋盤。找到 ${state.moves.length} 種有效交換。`,'warn');
+    } else {
+      setStatus(`辨識完成：${ROWS}×${COLS} 共 42 格，${special} 格特殊／未知，找到 ${state.moves.length} 種有效交換。請核對顏色。`,'ok');
+    }
+  }catch(error){
+    console.error('image processing failed',error);
+    setStatus(`無法分析圖片：${error.message || '未知錯誤'}。請重新上傳 JPG 或 PNG。`,'warn');
+  }
+}
+function loadDemo(){
+  state.board=DEMO_BOARD.map(row=>[...row]);state.demo=true;state.details=null;
+  state.bounds=null;state.imageCanvas=null;state.imageData=null;
+  state.manualActive=false;state.manualFirst=null;state.editCell=null;
+  recalculate(true);
+  setStatus(`目前是範例盤面（不是即時遊戲截圖）：共找到 ${state.moves.length} 種有效交換。上傳你的截圖即可替換。`,'ok');
+}
+function exportCsv(){
+  const rows=[['序號','起點排','起點欄','終點排','終點欄','紅色','黃色','紫色','粉紅','總消除'],...sortMoves(state.moves,state.sort).map((m,i)=>[
+    i+1,m.from.r+1,m.from.c+1,m.to.r+1,m.to.c+1,
+    m.counts.R,m.counts.Y,m.counts.G,m.counts.P,m.total
+  ])];
+  const csv='\ufeff'+rows.map(row=>row.join(',')).join('\r\n');
+  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  const anchor=document.createElement('a');anchor.href=url;anchor.download='candy-swaps.csv';document.body.append(anchor);anchor.click();anchor.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),500);
+  setStatus('已產生完整有效交換列表 CSV。','ok');
+}
+async function copyAscii(){
+  const content=asciiBoard(state.board,selectedMove());
+  try{
+    await navigator.clipboard.writeText(content);
+    setStatus('已複製 6×7 ASCII 棋盤和目前選取的交換路徑。','ok');
+  }catch(e){
+    const text=document.createElement('textarea');text.value=content;document.body.append(text);text.select();
+    const success=document.execCommand('copy');text.remove();
+    setStatus(success?'已複製 ASCII 棋盤。':'此瀏覽器不允許複製，請使用 HTTPS 的 GitHub Pages。',success?'ok':'warn');
+  }
+}
+function wireEvents(){
+  const zone=elements.dropzone;
+  zone.addEventListener('click',()=>elements.fileInput.click());
+  zone.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();elements.fileInput.click();}});
+  elements.fileInput.addEventListener('change',e=>processImage(e.target.files?.[0]));
+  for(const type of ['dragenter','dragover'])zone.addEventListener(type,e=>{e.preventDefault();zone.classList.add('dragover');});
+  for(const type of ['dragleave','drop'])zone.addEventListener(type,e=>{e.preventDefault();zone.classList.remove('dragover');});
+  zone.addEventListener('drop',e=>processImage([...e.dataTransfer.files].find(f=>f.type.startsWith('image/'))));
+  document.addEventListener('paste',event=>{
+    const item=[...(event.clipboardData?.items??[])].find(i=>i.type.startsWith('image/'));
+    if(item){event.preventDefault();processImage(item.getAsFile());}
+  });
+  elements.demoButton.addEventListener('click',loadDemo);
+  elements.csvButton.addEventListener('click',exportCsv);
+  elements.copyButton.addEventListener('click',copyAscii);
+  elements.boardCanvas.addEventListener('click',editCellFromBoardClick);
+  elements.sourceCanvas.addEventListener('click',onSourceClick);
+  elements.manualButton.addEventListener('click',()=>{
+    if(!state.imageCanvas)return;
+    state.manualActive=!state.manualActive;state.manualFirst=null;
+    elements.manualButton.textContent=state.manualActive?'取消框選':'開始框選（點兩個角）';
+    elements.manualHint.textContent=state.manualActive?'請點下方截圖中綠色棋盤左上角。':'';
+    drawSourceCanvas();
+  });
+  document.querySelectorAll('.col-sort').forEach(btn=>btn.addEventListener('click',()=>{
+    const key=btn.dataset.sort;state.sort=key;
+    const best=bestMove(key);if(best)state.selectedMoveId=best.id;
+    renderEverything();
+  }));
+  let saved = null;
+  try { saved=localStorage.getItem('candy-solver-theme'); } catch (_) {}
+  if(saved==='light'||saved==='dark')document.documentElement.dataset.theme=saved;
+  elements.themeToggle.addEventListener('click',()=>{
+    const next=document.documentElement.dataset.theme==='light'?'dark':'light';
+    document.documentElement.dataset.theme=next;
+    try { localStorage.setItem('candy-solver-theme',next); } catch (_) {}
+  });
+}
+wireEvents();loadDemo();
+
+</script>
+</body>
+</html>
