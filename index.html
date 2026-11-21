@@ -9,9 +9,9 @@
   <style>
 :root{color-scheme:dark;--bg:#0e1521;--surface:#172130;--surface-alt:#1c293a;--stroke:#304157;--text:#e8f0fa;--muted:#a0aec0;--accent:#85e0ba;--accent-strong:#19b980;--focus:#87d9ff;--shadow:0 12px 35px #0002;--white:#fff}
 :root[data-theme="light"]{color-scheme:light;--bg:#f4f8f6;--surface:#fff;--surface-alt:#eaf4ee;--stroke:#d2e0d7;--text:#223447;--muted:#58717d;--accent:#087f59;--accent-strong:#0a9567;--focus:#246eac;--shadow:0 8px 35px #26433113;--white:#fff}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.55}button,input{font:inherit}button{cursor:pointer}button:focus-visible,summary:focus-visible,.dropzone:focus-visible,.cell:focus-visible,.result-row:focus-visible{outline:3px solid var(--focus);outline-offset:3px}.topbar{border-bottom:1px solid var(--stroke);min-height:73px;display:flex;align-items:center;justify-content:space-between;padding:10px max(22px,calc((100vw - 1190px)/2))}.brand{display:flex;align-items:center;gap:11px;font-size:17px;letter-spacing:.1px}.brand strong{font-weight:760}.brand small{display:block;font-size:11px;color:var(--muted);margin-top:-4px;letter-spacing:.8px}.logo{width:38px;height:38px;display:grid;place-items:center;color:#103824;font-size:23px;border-radius:11px;background:linear-gradient(135deg,#b7ffe0,#56d7a5);box-shadow:0 3px 14px #1ac98b48}.container{max-width:1200px;margin:auto;padding:30px 24px 70px}.intro{padding-bottom:24px}.intro h1{font-weight:850;font-size:clamp(28px,3vw,40px);letter-spacing:-1px;margin:8px 0 4px;line-height:1.28}.intro p{color:var(--muted);margin:0;font-size:15px}.eyebrow{font-size:12px;letter-spacing:1px;color:var(--accent);font-weight:700}.live-dot{display:inline-block;background:var(--accent-strong);height:8px;width:8px;border-radius:100%;margin-right:5px;box-shadow:0 0 0 4px #36db8730}.accent{color:var(--accent)}.nowrap{white-space:nowrap}.panel{background:var(--surface);border:1px solid var(--stroke);border-radius:18px;box-shadow:var(--shadow);padding:21px;min-width:0}.heading-row,.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.heading-row>div:first-child,.section-title>div:first-child{display:flex;align-items:center;gap:9px}.heading-row h2,.section-title h2{font-size:17px;margin:0;font-weight:750}.step{display:inline-flex;justify-content:center;align-items:center;font-size:11px;color:var(--accent);font-weight:760;background:color-mix(in srgb,var(--accent) 13%,transparent);border:1px solid color-mix(in srgb,var(--accent) 21%,transparent);width:28px;height:26px;border-radius:8px}.hint,.section-title small{font-size:12px;color:var(--muted)}.ghost,.secondary{border:1px solid var(--stroke);background:var(--surface-alt);color:var(--text);border-radius:9px;padding:9px 13px;font-weight:620}.ghost:hover,.secondary:hover{border-color:var(--accent-strong);background:color-mix(in srgb,var(--accent-strong) 14%,var(--surface-alt))}.ghost.small{font-size:13px}.dropzone{border:2px dashed color-mix(in srgb,var(--accent-strong) 48%,var(--stroke));border-radius:14px;min-height:150px;padding:21px;display:flex;align-items:center;justify-content:center;gap:5px;flex-direction:column;background:linear-gradient(130deg,color-mix(in srgb,var(--accent-strong) 8%,transparent),transparent);text-align:center;transition:.2s}.dropzone:hover,.dropzone.dragover{background:color-mix(in srgb,var(--accent) 12%,var(--surface));border-color:var(--accent-strong)}.dropzone strong{font-size:15px}.dropzone small{color:var(--muted);font-size:12px}.upload-icon{background:color-mix(in srgb,var(--accent) 19%,transparent);border-radius:12px;color:var(--accent);font-size:32px;width:52px;height:52px;display:grid;place-items:center;line-height:1;margin-bottom:7px}.action-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.action-row button{font-size:12px}.status{font-size:13px;color:var(--muted);margin:12px 0 0}.status.ok{color:var(--accent)}.status.warn{color:#f6c179}.workspace{display:grid;grid-template-columns:minmax(0,1.07fr) minmax(0,1fr);align-items:start;gap:18px;margin-top:19px}.canvas-wrap{background:repeating-conic-gradient(#121b28 0 25%,#192332 0 50%) 0 0/24px 24px;border:1px solid var(--stroke);border-radius:12px;display:flex;justify-content:center;overflow:hidden}.canvas-wrap canvas{display:block;width:100%;height:auto;max-width:600px;object-fit:contain}.move-pill{border:1px solid color-mix(in srgb,var(--accent) 40%,var(--stroke));border-radius:9px;margin-top:12px;padding:10px 12px;background:color-mix(in srgb,var(--accent) 8%,var(--surface));font-size:13px;font-weight:650}.panel-note{font-size:12px;color:var(--muted);margin:10px 0 0}.manual-details{margin-top:16px;border-top:1px solid var(--stroke);padding-top:12px}.manual-details summary{color:var(--accent);font-weight:600;cursor:pointer;font-size:13px}.manual-content p{font-size:12px;color:var(--muted);margin:10px 0}.manual-hint{margin:8px 0}.original-image-box{max-height:520px;overflow:auto;background:#101010;border-radius:9px;border:1px solid var(--stroke)}.original-image-box canvas{display:block;width:100%;height:auto;cursor:crosshair}.board-edit-outer{max-width:510px;margin:0 auto}.column-numbers{display:grid;grid-template-columns:repeat(6,1fr);padding:0 1px 0 1px;gap:5px;margin-bottom:6px;color:var(--muted);text-align:center;font-size:12px;font-weight:700}.board-edit-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;background:#335d3b;border-radius:12px;padding:7px}.cell{position:relative;min-width:0;aspect-ratio:1/1;border:2px solid transparent;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:clamp(21px,2.6vw,36px);line-height:1;transition:background .1s,border .1s;user-select:none}.cell .pos{position:absolute;left:5px;top:4px;color:#24323eaa;font-weight:800;font-size:10px;line-height:1}.cell.red{background:linear-gradient(155deg,#ffc2ab,#ff817b);color:#723025}.cell.yellow{background:linear-gradient(155deg,#fff6a6,#f5bc3c);color:#754f03}.cell.purple{background:linear-gradient(155deg,#e8d4ff,#a889dc);color:#442271}.cell.pink{background:linear-gradient(155deg,#ffe0ed,#f5a9bf);color:#79314a}.cell.special{background:linear-gradient(155deg,#dce8ed,#a4b4bc);color:#243943}.cell.match{box-shadow:inset 0 0 0 3px #24ba77}.cell.from{border-color:#f48036;box-shadow:inset 0 0 0 2px #d44823,0 0 0 2px #f4803644}.cell.to{border-color:#30a5fb;box-shadow:inset 0 0 0 2px #1970bd,0 0 0 2px #30a5fb44}.cell.editing{outline:3px solid #fff;outline-offset:-6px}.cell:hover{filter:brightness(1.06)}.editor-tools{margin:18px auto 0;max-width:510px}.edit-message{font-size:13px;color:var(--muted);margin-bottom:9px}.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.palette button{min-width:0;border:1px solid var(--stroke);background:var(--surface-alt);padding:6px 3px;border-radius:10px;font-size:12px;color:var(--text)}.palette button .pal-icon{font-size:20px;display:block;margin-bottom:2px}.palette button:hover,.palette button.chosen{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 15%,var(--surface-alt))}.palette button:disabled{opacity:.38;cursor:not-allowed}.summary-area{margin-top:23px}.section-title{margin:0 2px 12px}.quick-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.quick-card{min-width:0;background:var(--surface);color:var(--text);border:1px solid var(--stroke);border-radius:14px;text-align:left;padding:14px 13px;transition:.15s}.quick-card:hover{transform:translateY(-2px);border-color:var(--accent-strong)}.quick-card.selected{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}.quick-card:disabled{opacity:.65;cursor:default;transform:none}.quick-card .kind{color:var(--muted);display:block;font-size:12px}.quick-card .value{display:block;font-size:26px;font-weight:830;margin:3px 0 2px}.quick-card .path{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}.result-panel{margin-top:21px}.count-bubble{display:inline-flex;min-width:31px;justify-content:center;border-radius:99px;padding:1px 9px;margin-left:5px;color:#093d2b;background:var(--accent);font-size:14px}.sort-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;font-size:13px;color:var(--muted)}.sort-buttons{display:flex;gap:7px;flex-wrap:wrap}.sort-buttons button{border:1px solid var(--stroke);border-radius:30px;background:var(--surface-alt);padding:5px 12px;color:var(--text);font-weight:650;font-size:12px}.sort-buttons button.active{background:var(--accent);border-color:var(--accent);color:#082f25}.table-scroll{overflow:auto;border-radius:11px;border:1px solid var(--stroke)}table{border-collapse:collapse;text-align:center;width:100%;min-width:730px;font-size:13px}thead{background:var(--surface-alt)}th{padding:12px 8px;white-space:nowrap;font-weight:800}td{border-top:1px solid var(--stroke);padding:10px 8px}th:nth-child(2),th:nth-child(3),td:nth-child(2),td:nth-child(3){text-align:left}tbody tr{cursor:pointer}tbody tr:hover{background:color-mix(in srgb,var(--accent) 8%,var(--surface))}tbody tr.selected{background:color-mix(in srgb,var(--accent) 13%,var(--surface))}td:first-child{color:var(--muted);font-variant-numeric:tabular-nums}td .xy{display:block;font-weight:700}td .detail{display:block;color:var(--muted);font-size:11px}.quantity{font-variant-numeric:tabular-nums;font-weight:740}.quantity.positive{font-size:14px}.quantity.off{color:var(--muted);opacity:.5;font-weight:400}.total-qty{font-size:16px;font-weight:860;color:var(--accent)}.col-sort{border:0;background:none;color:inherit;font-weight:inherit;padding:0;font-size:inherit}.col-sort:hover{color:var(--accent)}.empty{padding:28px;text-align:center;color:var(--muted);font-size:13px}.result-heading{margin-bottom:14px}footer{border-top:1px solid var(--stroke);margin-top:25px;padding-top:14px;color:var(--muted);font-size:12px}footer p{margin:7px 0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.55}button,input{font:inherit}button{cursor:pointer}button:focus-visible,summary:focus-visible,.dropzone:focus-visible,.cell:focus-visible,.result-row:focus-visible{outline:3px solid var(--focus);outline-offset:3px}.topbar{border-bottom:1px solid var(--stroke);min-height:73px;display:flex;align-items:center;justify-content:space-between;padding:10px max(22px,calc((100vw - 1190px)/2))}.brand{display:flex;align-items:center;gap:11px;font-size:17px;letter-spacing:.1px}.brand strong{font-weight:760}.brand small{display:block;font-size:11px;color:var(--muted);margin-top:-4px;letter-spacing:.8px}.logo{width:38px;height:38px;display:grid;place-items:center;color:#103824;font-size:23px;border-radius:11px;background:linear-gradient(135deg,#b7ffe0,#56d7a5);box-shadow:0 3px 14px #1ac98b48}.container{max-width:1200px;margin:auto;padding:30px 24px 70px}.intro{padding-bottom:24px}.intro h1{font-weight:850;font-size:clamp(28px,3vw,40px);letter-spacing:-1px;margin:8px 0 4px;line-height:1.28}.intro p{color:var(--muted);margin:0;font-size:15px}.eyebrow{font-size:12px;letter-spacing:1px;color:var(--accent);font-weight:700}.live-dot{display:inline-block;background:var(--accent-strong);height:8px;width:8px;border-radius:100%;margin-right:5px;box-shadow:0 0 0 4px #36db8730}.accent{color:var(--accent)}.nowrap{white-space:nowrap}.panel{background:var(--surface);border:1px solid var(--stroke);border-radius:18px;box-shadow:var(--shadow);padding:21px;min-width:0}.heading-row,.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.heading-row>div:first-child,.section-title>div:first-child{display:flex;align-items:center;gap:9px}.heading-row h2,.section-title h2{font-size:17px;margin:0;font-weight:750}.step{display:inline-flex;justify-content:center;align-items:center;font-size:11px;color:var(--accent);font-weight:760;background:color-mix(in srgb,var(--accent) 13%,transparent);border:1px solid color-mix(in srgb,var(--accent) 21%,transparent);width:28px;height:26px;border-radius:8px}.hint,.section-title small{font-size:12px;color:var(--muted)}.ghost,.secondary{border:1px solid var(--stroke);background:var(--surface-alt);color:var(--text);border-radius:9px;padding:9px 13px;font-weight:620}.ghost:hover,.secondary:hover{border-color:var(--accent-strong);background:color-mix(in srgb,var(--accent-strong) 14%,var(--surface-alt))}.ghost.small{font-size:13px}.dropzone{border:2px dashed color-mix(in srgb,var(--accent-strong) 48%,var(--stroke));border-radius:14px;min-height:150px;padding:21px;display:flex;align-items:center;justify-content:center;gap:5px;flex-direction:column;background:linear-gradient(130deg,color-mix(in srgb,var(--accent-strong) 8%,transparent),transparent);text-align:center;transition:.2s}.dropzone:hover,.dropzone.dragover{background:color-mix(in srgb,var(--accent) 12%,var(--surface));border-color:var(--accent-strong)}.dropzone strong{font-size:15px}.dropzone small{color:var(--muted);font-size:12px}.upload-icon{background:color-mix(in srgb,var(--accent) 19%,transparent);border-radius:12px;color:var(--accent);font-size:32px;width:52px;height:52px;display:grid;place-items:center;line-height:1;margin-bottom:7px}.action-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.action-row button{font-size:12px}.status{font-size:13px;color:var(--muted);margin:12px 0 0}.status.ok{color:var(--accent)}.status.warn{color:#f6c179}.workspace{display:grid;grid-template-columns:minmax(0,1.07fr) minmax(0,1fr);align-items:start;gap:18px;margin-top:19px}.canvas-wrap{background:repeating-conic-gradient(#121b28 0 25%,#192332 0 50%) 0 0/24px 24px;border:1px solid var(--stroke);border-radius:12px;display:flex;justify-content:center;overflow:hidden}.canvas-wrap canvas{display:block;width:100%;height:auto;max-width:600px;object-fit:contain}.move-pill{border:1px solid color-mix(in srgb,var(--accent) 40%,var(--stroke));border-radius:9px;margin-top:12px;padding:10px 12px;background:color-mix(in srgb,var(--accent) 8%,var(--surface));font-size:13px;font-weight:650}.panel-note{font-size:12px;color:var(--muted);margin:10px 0 0}.manual-details{margin-top:16px;border-top:1px solid var(--stroke);padding-top:12px}.manual-details summary{color:var(--accent);font-weight:600;cursor:pointer;font-size:13px}.manual-content p{font-size:12px;color:var(--muted);margin:10px 0}.manual-hint{margin:8px 0}.original-image-box{max-height:520px;overflow:auto;background:#101010;border-radius:9px;border:1px solid var(--stroke)}.original-image-box canvas{display:block;width:100%;height:auto;cursor:crosshair}.board-edit-outer{max-width:510px;margin:0 auto}.column-numbers{display:grid;grid-template-columns:repeat(6,1fr);padding:0 1px 0 1px;gap:5px;margin-bottom:6px;color:var(--muted);text-align:center;font-size:12px;font-weight:700}.board-edit-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;background:#335d3b;border-radius:12px;padding:7px}.cell{position:relative;min-width:0;aspect-ratio:1/1;border:2px solid transparent;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:clamp(21px,2.6vw,36px);line-height:1;transition:background .1s,border .1s;user-select:none}.cell .pos{position:absolute;left:5px;top:4px;color:#24323eaa;font-weight:800;font-size:10px;line-height:1}.cell.red{background:linear-gradient(155deg,#ffc2ab,#ff817b);color:#723025}.cell.yellow{background:linear-gradient(155deg,#fff6a6,#f5bc3c);color:#754f03}.cell.purple{background:linear-gradient(155deg,#e8d4ff,#a889dc);color:#442271}.cell.pink{background:linear-gradient(155deg,#ffe0ed,#f5a9bf);color:#79314a}.cell.special{background:linear-gradient(155deg,#dce8ed,#a4b4bc);color:#243943}.cell.jar{background:linear-gradient(155deg,#c3f7fa,#76a3d9);color:#174267}.cell.dragon{background:linear-gradient(155deg,#fff8da,#f0cb83);color:#7a4b2a}.cell.match{box-shadow:inset 0 0 0 3px #24ba77}.cell.from{border-color:#f48036;box-shadow:inset 0 0 0 2px #d44823,0 0 0 2px #f4803644}.cell.to{border-color:#30a5fb;box-shadow:inset 0 0 0 2px #1970bd,0 0 0 2px #30a5fb44}.cell.editing{outline:3px solid #fff;outline-offset:-6px}.cell:hover{filter:brightness(1.06)}.editor-tools{margin:18px auto 0;max-width:510px}.edit-message{font-size:13px;color:var(--muted);margin-bottom:9px}.palette{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.palette button{min-width:0;border:1px solid var(--stroke);background:var(--surface-alt);padding:6px 3px;border-radius:10px;font-size:12px;color:var(--text)}.palette button .pal-icon{font-size:20px;display:block;margin-bottom:2px}.palette button:hover,.palette button.chosen{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 15%,var(--surface-alt))}.palette button:disabled{opacity:.38;cursor:not-allowed}.summary-area{margin-top:23px}.section-title{margin:0 2px 12px}.quick-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.quick-card{min-width:0;background:var(--surface);color:var(--text);border:1px solid var(--stroke);border-radius:14px;text-align:left;padding:14px 13px;transition:.15s}.quick-card:hover{transform:translateY(-2px);border-color:var(--accent-strong)}.quick-card.selected{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}.quick-card:disabled{opacity:.65;cursor:default;transform:none}.quick-card .kind{color:var(--muted);display:block;font-size:12px}.quick-card .value{display:block;font-size:26px;font-weight:830;margin:3px 0 2px}.quick-card .path{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}.result-panel{margin-top:21px}.count-bubble{display:inline-flex;min-width:31px;justify-content:center;border-radius:99px;padding:1px 9px;margin-left:5px;color:#093d2b;background:var(--accent);font-size:14px}.sort-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;font-size:13px;color:var(--muted)}.sort-buttons{display:flex;gap:7px;flex-wrap:wrap}.sort-buttons button{border:1px solid var(--stroke);border-radius:30px;background:var(--surface-alt);padding:5px 12px;color:var(--text);font-weight:650;font-size:12px}.sort-buttons button.active{background:var(--accent);border-color:var(--accent);color:#082f25}.table-scroll{overflow:auto;border-radius:11px;border:1px solid var(--stroke)}table{border-collapse:collapse;text-align:center;width:100%;min-width:730px;font-size:13px}thead{background:var(--surface-alt)}th{padding:12px 8px;white-space:nowrap;font-weight:800}td{border-top:1px solid var(--stroke);padding:10px 8px}th:nth-child(2),th:nth-child(3),td:nth-child(2),td:nth-child(3){text-align:left}tbody tr{cursor:pointer}tbody tr:hover{background:color-mix(in srgb,var(--accent) 8%,var(--surface))}tbody tr.selected{background:color-mix(in srgb,var(--accent) 13%,var(--surface))}td:first-child{color:var(--muted);font-variant-numeric:tabular-nums}td .xy{display:block;font-weight:700}td .detail{display:block;color:var(--muted);font-size:11px}.quantity{font-variant-numeric:tabular-nums;font-weight:740}.quantity.positive{font-size:14px}.quantity.off{color:var(--muted);opacity:.5;font-weight:400}.total-qty{font-size:16px;font-weight:860;color:var(--accent)}.col-sort{border:0;background:none;color:inherit;font-weight:inherit;padding:0;font-size:inherit}.col-sort:hover{color:var(--accent)}.empty{padding:28px;text-align:center;color:var(--muted);font-size:13px}.result-heading{margin-bottom:14px}footer{border-top:1px solid var(--stroke);margin-top:25px;padding-top:14px;color:var(--muted);font-size:12px}footer p{margin:7px 0}
 @media(max-width:950px){.workspace{grid-template-columns:1fr}.quick-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.board-edit-outer,.editor-tools{max-width:530px}.cell{font-size:32px}}
-@media(max-width:550px){.container{padding:23px 12px 45px}.topbar{padding:10px 14px}.panel{padding:13px;border-radius:14px}.intro h1{font-size:28px}.heading-row{align-items:flex-start}.heading-row .hint{max-width:40%;text-align:right}.quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-card:last-child{grid-column:span 2}.quick-card{padding:10px 12px}.cell{font-size:clamp(18px,6vw,30px);border-radius:7px}.board-edit-grid{gap:3px;padding:5px}.palette{gap:4px}.palette button{font-size:11px}.upload-panel .action-row button{flex-grow:1}.dropzone{min-height:138px;padding:15px}.dropzone strong{font-size:13px}.section-title small{display:none}.result-panel .heading-row .hint{display:none}}
+@media(max-width:550px){.container{padding:23px 12px 45px}.topbar{padding:10px 14px}.panel{padding:13px;border-radius:14px}.intro h1{font-size:28px}.heading-row{align-items:flex-start}.heading-row .hint{max-width:40%;text-align:right}.quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-card:last-child{grid-column:span 2}.quick-card{padding:10px 12px}.cell{font-size:clamp(18px,6vw,30px);border-radius:7px}.board-edit-grid{gap:3px;padding:5px}.palette{gap:4px;grid-template-columns:repeat(4,minmax(0,1fr))}.palette button{font-size:11px}.upload-panel .action-row button{flex-grow:1}.dropzone{min-height:138px;padding:15px}.dropzone strong{font-size:13px}.section-title small{display:none}.result-panel .heading-row .hint{display:none}}
 
 </style>
 </head>
@@ -24,7 +24,7 @@
     <div class="intro">
       <div class="eyebrow"><span class="live-dot"></span> 100% 本機運算 · 不上傳圖片到伺服器</div>
       <h1>上傳截圖，找出<span class="accent">最佳交換</span></h1>
-      <p>辨識 6 欄 × 7 排，枚舉所有 71 種相鄰交換，只算<span class="nowrap">「這一步」</span>能直接消除的糖果。</p>
+      <p>辨識 6 欄 × 7 排，枚舉 71 組相鄰位置，計算普通三消與特殊糖果的<span class="nowrap">當次直接效果</span>，不推測落下。</p>
     </div>
 
     <section class="panel upload-panel" aria-labelledby="uploadTitle">
@@ -77,10 +77,10 @@
           <div class="board-edit-grid" id="editorGrid" role="grid" aria-label="點選任一格以手動修正糖果"></div>
         </div>
         <div class="editor-tools">
-          <div class="edit-message" id="editMessage">選一格，就能改成紅／黃／紫／粉／特殊。</div>
+          <div class="edit-message" id="editMessage">選一格，可以改成四色糖果／糖果罐／龍鬚酥／未知。</div>
           <div class="palette" id="palette" aria-label="將選擇的格子改成指定顏色"></div>
         </div>
-        <p class="panel-note">「特殊／未知」格暫不參與交換或消除。如果圖片辨識不正確，修改後會立即重新計算。</p>
+        <p class="panel-note">糖果罐 🫙 拖動後預估清除落點周圍 3×3；龍鬚酥 🍥 拖動後預估清除落點十字方向。未知 ❔ 不計入交換。點格子可更正自動辨識。</p>
       </section>
     </div>
 
@@ -98,7 +98,7 @@
       <div class="table-scroll">
         <table>
           <thead><tr>
-            <th scope="col">#</th><th scope="col">從哪格</th><th scope="col">到哪格</th>
+            <th scope="col">#</th><th scope="col">從哪格</th><th scope="col">到哪格</th><th scope="col">方式／生成</th>
             <th scope="col"><button class="col-sort" type="button" data-sort="R">🍓 紅</button></th>
             <th scope="col"><button class="col-sort" type="button" data-sort="Y">🍊 黃</button></th>
             <th scope="col"><button class="col-sort" type="button" data-sort="G">🍇 紫</button></th>
@@ -107,19 +107,19 @@
           </tr></thead>
           <tbody id="moveRows"></tbody>
         </table>
-        <div id="noResults" class="empty" hidden>此棋盤沒有能立即形成三消的相鄰交換，請確認辨識是否正確。</div>
+        <div id="noResults" class="empty" hidden>此棋盤沒有可立即三消或觸發特殊糖果的交換，請確認辨識是否正確。</div>
       </div>
     </section>
     <footer>
-      <p>計算範圍：交換後立刻形成的橫向／縱向 3 個以上連線，交叉格不重複計數。<strong>不模擬掉落、補糖、連鎖、道具或特殊效果。</strong></p>
+      <p>依遊戲教學：普通 3 連消除；4 個同色生成糖果罐、5 個以上生成龍鬚酥；<strong>拖動糖果罐預估 3×3、龍鬚酥預估十字清除</strong>。只算本次連線或單次主特效，交叉格不重複；不模擬落下、補糖、連鎖或特殊糖果互相引爆。特效以拖動後落點為中心估算，實際規則仍以遊戲為準。</p>
       <p>靜態網站 · 原生 JavaScript · 無第三方函式庫 · 圖片只留在目前瀏覽器分頁。</p>
     </footer>
   </main>
   <script>
 /**
  * 6x7 match-three single-move solver.
- * This game engine intentionally does not simulate gravity, refill, cascades,
- * power-ups, or special effects. Coordinates are 1-based in the UI.
+ * One move only: standard matches, dragged jar 3x3, dragged dragon-beard cross.
+ * No gravity, refill, cascades, or chain detonations. UI uses 1-based positions.
  */
 const ROWS = 7;
 const COLS = 6;
@@ -128,12 +128,14 @@ const TYPES = Object.freeze({
   Y: { name: '黃色（橘子）', short: '黃', emoji: '🍊', css: 'yellow' },
   G: { name: '紫色（葡萄）', short: '紫', emoji: '🍇', css: 'purple' },
   P: { name: '粉紅色（桃子）', short: '粉', emoji: '🍑', css: 'pink' },
-  S: { name: '特殊／未知', short: '特', emoji: '❔', css: 'special' },
+  J: { name: '糖果罐（3×3）', short: '罐', emoji: '🫙', css: 'jar' },
+  D: { name: '龍鬚酥（十字）', short: '酥', emoji: '🍥', css: 'dragon' },
+  S: { name: '未知／無法辨識', short: '？', emoji: '❔', css: 'special' },
 });
 const COLORS = ['R', 'Y', 'G', 'P'];
 const DEMO_BOARD = [
   'PGRYPP',
-  'RRSGYY',
+  'RRJGYY',
   'PYYGYP',
   'YGRYRP',
   'GPYPYY',
@@ -145,7 +147,7 @@ function assertBoard(board) {
   if (!Array.isArray(board) || board.length !== ROWS ||
       !board.every(row => Array.isArray(row) && row.length === COLS &&
         row.every(cell => Object.hasOwn(TYPES, cell)))) {
-    throw new Error('棋盤必須是 7 排 × 6 欄，每格為 R/Y/G/P/S 其中之一。');
+    throw new Error('棋盤必須是 7 排 × 6 欄，每格為 R/Y/G/P/J/D/S 其中之一。');
   }
 }
 
@@ -161,7 +163,7 @@ function findRuns(board) {
       const type = board[r][c];
       let end = c + 1;
       while (end < COLS && board[r][end] === type) end++;
-      if (end - c >= 3 && type !== 'S') {
+      if (end - c >= 3 && COLORS.includes(type)) {
         runs.push({ type, indices: Array.from({ length: end - c }, (_, i) => r * COLS + c + i) });
       }
       c = end;
@@ -173,7 +175,7 @@ function findRuns(board) {
       const type = board[r][c];
       let end = r + 1;
       while (end < ROWS && board[end][c] === type) end++;
-      if (end - r >= 3 && type !== 'S') {
+      if (end - r >= 3 && COLORS.includes(type)) {
         runs.push({ type, indices: Array.from({ length: end - r }, (_, i) => (r + i) * COLS + c) });
       }
       r = end;
@@ -182,39 +184,73 @@ function findRuns(board) {
   return runs;
 }
 
-/**
- * Enumerate 71 adjacent exchanges (35 horizontal + 36 vertical).
- * Count only runs containing at least one swapped position. In a normal
- * stable match-3 board this is exactly the first clear before gravity.
- * Overlapping runs use a set to avoid double-counting shared cells.
+/** Cells affected by dragging a special candy into its neighboring destination.
+ * Jar: 3x3 around destination. Dragon-beard: whole destination row/column.
+ * The help pictures show the geometry, but do not describe chain detonation.
+ */
+function specialArea(type, r, c) {
+  const cells = [];
+  if (type === 'J') {
+    for (let rr=Math.max(0,r-1);rr<=Math.min(ROWS-1,r+1);rr++) {
+      for (let cc=Math.max(0,c-1);cc<=Math.min(COLS-1,c+1);cc++) cells.push(rr*COLS+cc);
+    }
+  } else if (type === 'D') {
+    for (let cc=0;cc<COLS;cc++) cells.push(r*COLS+cc);
+    for (let rr=0;rr<ROWS;rr++) cells.push(rr*COLS+c);
+  }
+  return cells;
+}
+
+/** Enumerate all adjacent exchanges; special moves are directional.
+ * Only the immediately formed runs or the dragged special's main effect count.
+ * Two specials swapped together are treated as two possible drag actions; we
+ * intentionally do NOT assume a combo or secondary detonation.
  */
 function solve(board) {
   assertBoard(board);
   const results = [];
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 0; c < COLS; c++) {
-      for (const [dr, dc] of [[0, 1], [1, 0]]) {
-        const r2 = r + dr, c2 = c + dc;
-        if (r2 >= ROWS || c2 >= COLS) continue;
-        const a = board[r][c], b = board[r2][c2];
-        if (a === 'S' || b === 'S' || a === b) continue;
-        const after = board.map(row => [...row]);
-        after[r][c] = b;
-        after[r2][c2] = a;
-        const srcIdx = r * COLS + c;
-        const dstIdx = r2 * COLS + c2;
-        const runs = findRuns(after).filter(run => run.indices.includes(srcIdx) || run.indices.includes(dstIdx));
-        if (!runs.length) continue;
-        const matches = [...new Set(runs.flatMap(run => run.indices))].sort((x,y) => x-y);
-        const counts = Object.fromEntries(COLORS.map(type => [type, 0]));
-        for (const idx of matches) counts[after[Math.floor(idx / COLS)][idx % COLS]]++;
-        results.push({
-          id: `${r}-${c}-${r2}-${c2}`,
-          from: { r, c }, to: { r: r2, c: c2 },
-          before: { a, b }, counts,
-          total: matches.length, matched: matches.map(idx => ({ r: Math.floor(idx / COLS), c: idx % COLS })),
-        });
-      }
+  const isSpecial = type => type==='J' || type==='D';
+  const pushMove = (from,to,effect=null) => {
+    const a=board[from.r][from.c],b=board[to.r][to.c];
+    const after=board.map(row=>[...row]);
+    after[from.r][from.c]=b;
+    after[to.r][to.c]=a;
+    const srcIdx=from.r*COLS+from.c, dstIdx=to.r*COLS+to.c;
+    const runs=findRuns(after).filter(run=>run.indices.includes(srcIdx)||run.indices.includes(dstIdx));
+    if(!effect && !runs.length)return;
+    const cleared=new Set(runs.flatMap(run=>run.indices));
+    if(effect) for(const idx of specialArea(effect,to.r,to.c))cleared.add(idx);
+    if(!cleared.size)return;
+    const matches=[...cleared].sort((x,y)=>x-y);
+    const counts=Object.fromEntries(COLORS.map(type=>[type,0]));
+    let specialCount=0;
+    for(const idx of matches){
+      const type=after[Math.floor(idx/COLS)][idx%COLS];
+      if(COLORS.includes(type))counts[type]++;
+      else specialCount++;
+    }
+    // This is only an indicator; a 4/5+ match can leave a new special tile.
+    // A run of 5+ makes dragon-beard; 4 makes jar (tutorial pages 3/6, 4/6).
+    const runCells=[...new Set(runs.flatMap(run=>run.indices))];
+    const largestColorRun=Math.max(0,...COLORS.map(type=>runCells.filter(idx=>after[Math.floor(idx/COLS)][idx%COLS]===type).length));
+    const created=effect ? null : (largestColorRun>=5?'D':largestColorRun>=4?'J':null);
+    results.push({
+      id:`${from.r}-${from.c}-${to.r}-${to.c}`,
+      from,to,before:{a,b},counts,specialCount,
+      effect,created,total:matches.length,
+      matched:matches.map(idx=>({r:Math.floor(idx/COLS),c:idx%COLS})),
+    });
+  };
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+    for(const [dr,dc] of [[0,1],[1,0]]){
+      const r2=r+dr,c2=c+dc;
+      if(r2>=ROWS||c2>=COLS)continue;
+      const a=board[r][c],b=board[r2][c2];
+      if(a==='S'||b==='S')continue;
+      const p={r,c},q={r:r2,c:c2};
+      if(isSpecial(a))pushMove(p,q,a);
+      if(isSpecial(b))pushMove(q,p,b);
+      if(!isSpecial(a)&&!isSpecial(b)&&a!==b)pushMove(p,q);
     }
   }
   return results;
@@ -246,8 +282,8 @@ function asciiBoard(board, move=null) {
       lines.push('        ' + '     '.repeat(move.from.c) + '      ↓');
     }
   }
-  if (move) lines.push(`交換：${coord(move.from)} → ${coord(move.to)}；消除 ${move.total} 顆`);
-  lines.push('R=紅色  Y=黃色  G=紫色  P=粉紅色  S=特殊');
+  if (move) lines.push(`交換：${coord(move.from)} → ${coord(move.to)}；${move.effect ? TYPES[move.effect].name : '普通三消'}；當次清除 ${move.total} 格`);
+  lines.push('R=紅 Y=黃 G=紫 P=粉 J=糖果罐 D=龍鬚酥 S=未知');
   return lines.join('\n');
 }
 
@@ -332,12 +368,16 @@ function classifyCell(imageData,bounds,r,c) {
   const y0=clamp(Math.round(y+ch*.26),0,H-1);
   const y1=clamp(Math.round(y+ch*.81),0,H);
   const hist={red:0,yellow:0,green:0,blue:0,purple:0,pink:0};
-  let n=0;
+  let n=0,all=0,pale=0,lowSat=0,cyan=0;
   const step=Math.max(1,Math.floor(Math.min(cw,ch)/45));
   for(let iy=y0;iy<y1;iy+=step){
     for(let ix=x0;ix<x1;ix+=step){
       const k=4*(iy*W+ix),rr=data[k],gg=data[k+1],bb=data[k+2];
       const {h,s,v}=rgbToHue(rr,gg,bb);
+      all++;
+      if(Math.min(rr,gg,bb)>158 && s<.25)pale++;
+      if(s<.20 && v>.28)lowSat++;
+      if(bb>rr*1.25 && gg>rr*1.20 && bb>90)cyan++;
       if(s<.20 || v<.28)continue;
       n++;
       if(h<18)hist.red++;
@@ -350,8 +390,11 @@ function classifyCell(imageData,bounds,r,c) {
   }
   if(n<30)return {type:'S',confidence:0,hist};
   const p=Object.fromEntries(Object.entries(hist).map(([k,v])=>[k,v/n]));
-  // Special jars have visible blue/cyan swirl; regular sweets do not.
-  if(p.blue>.024)return {type:'S',confidence:clamp(p.blue/.06,0,1),hist};
+  // Distinctive features from reference screenshots: cyan jar swirls,
+  // and pale, low-saturation shredded dragon-beard sweet.
+  const paleRatio=pale/Math.max(1,all), lowRatio=lowSat/Math.max(1,all), cyanRatio=cyan/Math.max(1,all);
+  if(cyanRatio>.006 || p.blue>.015)return {type:'J',confidence:clamp(Math.max(cyanRatio/.012,p.blue/.04),0,1),hist};
+  if(paleRatio>.48 && lowRatio>.37)return {type:'D',confidence:clamp((paleRatio-.37)/.25,0,1),hist};
   if(p.purple>.29)return {type:'G',confidence:clamp(p.purple/.54,0,1),hist};
   if(p.yellow>.57)return {type:'Y',confidence:clamp(p.yellow/.75,0,1),hist};
   if(p.pink>.055 && p.red>.16)return {type:'P',confidence:clamp(p.pink/.13,0,1),hist};
@@ -463,6 +506,9 @@ function renderTable() {
       const more=document.createElement('span');more.className='detail';more.textContent=compactCoord(p);
       td.append(xy,more);tr.append(td);
     }
+    const tdEffect=document.createElement('td');
+    tdEffect.textContent=move.effect ? `${TYPES[move.effect].short}・特效` : move.created ? `三消・生成${TYPES[move.created].short}` : '普通三消';
+    tdEffect.className='detail';tr.append(tdEffect);
     for(const color of COLORS){
       const td=document.createElement('td');const num=document.createElement('span');
       num.className='quantity ' + (move.counts[color]?'positive':'off');
@@ -470,7 +516,9 @@ function renderTable() {
       td.append(num);tr.append(td);
     }
     const tdTotal=document.createElement('td');const sum=document.createElement('strong');
-    sum.className='total-qty';sum.textContent=String(move.total);tdTotal.append(sum);tr.append(tdTotal);
+    sum.className='total-qty';sum.textContent=String(move.total);tdTotal.append(sum);
+    if(move.specialCount){const small=document.createElement('small');small.className='detail';small.textContent=`含特殊 ${move.specialCount} 格`;tdTotal.append(small);}
+    tr.append(tdTotal);
     const choose=()=>{
       state.selectedMoveId=move.id;
       renderEverything();
@@ -511,9 +559,9 @@ function renderPalette() {
   const p=state.editCell;
   elements.editMessage.textContent=p?
     `修改第 ${p.r+1} 排第 ${p.c+1} 欄（目前：${TYPES[state.board[p.r][p.c]].name}）` :
-    '先選一格，就能改成紅／黃／紫／粉／特殊。';
+    '先選一格，可以改成四色糖果／糖果罐／龍鬚酥／未知。';
   const frag=document.createDocumentFragment();
-  for(const type of [...COLORS,'S']){
+  for(const type of [...COLORS,'J','D','S']){
     const btn=document.createElement('button');btn.type='button';
     const ico=document.createElement('span');ico.className='pal-icon';ico.textContent=TYPES[type].emoji;
     const txt=document.createElement('span');txt.textContent=TYPES[type].short;
@@ -534,7 +582,9 @@ function renderInfo(){
   const move=selectedMove();
   if(!move){elements.moveInfo.textContent='目前沒有有效交換；可檢查辨識結果或上傳新圖片。';return;}
   const breakdown=COLORS.filter(c=>move.counts[c]).map(c=>`${TYPES[c].short}${move.counts[c]}`).join(' + ');
-  elements.moveInfo.textContent=`${coord(move.from)} ↔ ${coord(move.to)} ｜ 立即消除 ${move.total} 顆（${breakdown}）`;
+  const label=move.effect?`拖動${TYPES[move.effect].short}・單次${TYPES[move.effect].name}效果`:'普通三消';
+  const notes=[breakdown,move.specialCount?`特殊${move.specialCount}`:'',move.created?`生成${TYPES[move.created].name}`:''].filter(Boolean).join(' + ');
+  elements.moveInfo.textContent=`${coord(move.from)} → ${coord(move.to)} ｜ ${label} ｜ 當次 ${move.total} 格（${notes}）`;
 }
 
 function fitCanvas(canvas,width,height){
@@ -557,7 +607,7 @@ function renderBoard(){
     const b=state.bounds;
     ctx.drawImage(state.imageCanvas,b.x,b.y,b.w,b.h,PANEL_LEFT,PANEL_TOP,COLS*PANEL_SIZE,ROWS*PANEL_SIZE);
   } else {
-    const bg={R:['#ffccb8','#ff8c76'],Y:['#fff19a','#fbbf45'],G:['#ddd0ff','#a88add'],P:['#ffe1e8','#efa3b8'],S:['#dae6eb','#91a2b1']};
+    const bg={R:['#ffccb8','#ff8c76'],Y:['#fff19a','#fbbf45'],G:['#ddd0ff','#a88add'],P:['#ffe1e8','#efa3b8'],J:['#bef4fc','#80aee3'],D:['#fff5d8','#f0c97e'],S:['#dae6eb','#91a2b1']};
     for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
       const x=PANEL_LEFT+c*PANEL_SIZE,y=PANEL_TOP+r*PANEL_SIZE;
       const grad=ctx.createLinearGradient(x,y,x+PANEL_SIZE,y+PANEL_SIZE);
@@ -690,7 +740,9 @@ async function processImage(file){
     state.board=result.board;state.details=result.details;
     state.demo=false;state.editCell=null;state.manualActive=false;state.manualFirst=null;
     recalculate(true);drawSourceCanvas();
-    const special=state.board.flat().filter(t=>t==='S').length;
+    const jar=state.board.flat().filter(t=>t==='J').length;
+    const dragon=state.board.flat().filter(t=>t==='D').length;
+    const unknown=state.board.flat().filter(t=>t==='S').length;
     const low=result.details.flat().filter(t=>t.confidence<.63).length;
     if(!located){
       elements.manualDetails.open=true;
@@ -698,7 +750,7 @@ async function processImage(file){
     } else if(low>2){
       setStatus(`棋盤已定位，但有 ${low} 格辨識不夠確定，請核對 6×7 棋盤。找到 ${state.moves.length} 種有效交換。`,'warn');
     } else {
-      setStatus(`辨識完成：${ROWS}×${COLS} 共 42 格，${special} 格特殊／未知，找到 ${state.moves.length} 種有效交換。請核對顏色。`,'ok');
+      setStatus(`辨識完成：42 格，糖果罐 ${jar}、龍鬚酥 ${dragon}、未知 ${unknown}；找到 ${state.moves.length} 種有效操作。請核對特殊格。`,'ok');
     }
   }catch(error){
     console.error('image processing failed',error);
@@ -713,9 +765,10 @@ function loadDemo(){
   setStatus(`目前是範例盤面（不是即時遊戲截圖）：共找到 ${state.moves.length} 種有效交換。上傳你的截圖即可替換。`,'ok');
 }
 function exportCsv(){
-  const rows=[['序號','起點排','起點欄','終點排','終點欄','紅色','黃色','紫色','粉紅','總消除'],...sortMoves(state.moves,state.sort).map((m,i)=>[
+  const rows=[['序號','起點排','起點欄','終點排','終點欄','方式','紅色','黃色','紫色','粉紅','特殊格','總清除'],...sortMoves(state.moves,state.sort).map((m,i)=>[
     i+1,m.from.r+1,m.from.c+1,m.to.r+1,m.to.c+1,
-    m.counts.R,m.counts.Y,m.counts.G,m.counts.P,m.total
+    m.effect?TYPES[m.effect].name:(m.created?`生成${TYPES[m.created].name}`:'普通三消'),
+    m.counts.R,m.counts.Y,m.counts.G,m.counts.P,m.specialCount,m.total
   ])];
   const csv='\ufeff'+rows.map(row=>row.join(',')).join('\r\n');
   const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
